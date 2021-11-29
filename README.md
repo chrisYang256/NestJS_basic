@@ -80,10 +80,10 @@ $ npm run test:cov
 </br>
 
 ▶︎ 모듈과 로직 흐름 이해
-1. client request
-2. controller handler
+1. Client request
+2. Controller handler receive
 3. Service handle the requests
-4. controller response
+4. Controller response
 
 </br>
 
