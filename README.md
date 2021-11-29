@@ -83,8 +83,7 @@ $ npm run test:cov
 1. client request
 2. controller handler
 3. Service handle the requests
-5. controller response
-6. client
+4. controller response
 
 </br>
 
