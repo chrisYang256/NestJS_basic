@@ -67,6 +67,7 @@ $ npm run test:cov
 ### > 해당 Repository에서 학습한 NestJS의 내용은 다음과 같습니다. 
 
 </br>
+
 ▶︎ NestJS의 구조
 
 - scr 폴더: 대부분의 비즈니스로직이 들어가는곳
@@ -86,9 +87,11 @@ $ npm run test:cov
 6. client
 
 </br>
+
 ▶︎ Type Script
 
 </br>
+
 ▶︎ 게시판 CRUD
 
 - Model 정의
