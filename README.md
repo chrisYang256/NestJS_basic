@@ -101,8 +101,17 @@ $ npm run test:cov
 
 ▶︎ Pips
 
-- injectable() 데코레이터로 주석이 달린 class
-- for data transformation, data validation
+- Injectable() 데코레이터로 주석이 달린 class
+- For data transformation, data validation
 - 컨트롤러 경로 처리기에 의해 처리되는 인수에 대해 작동.
 - NestJs는 메소드가 호출되기 직전 파이프를 삽입, 
   파이프틑 메소드로 향하는 인수를 수신하고 이에 대해 작동.
+- Custom Pipes: Use transform method
+
+<br/>
+
+▶︎ Exception filters
+
+- Throw new NotFoundException()
+- Throw new BadRequestException()
+- Custom exception: Insert error message at function parameter
