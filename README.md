@@ -67,6 +67,7 @@ $ npm run test:cov
 ### > 해당 Repository에서 학습한 NestJS의 내용은 다음과 같습니다. 
 
 </br>
+
 ▶︎ NestJS의 구조
 
 - scr 폴더: 대부분의 비즈니스로직이 들어가는곳
@@ -79,16 +80,17 @@ $ npm run test:cov
 </br>
 
 ▶︎ 모듈과 로직 흐름 이해
-1. client request
-2. controller handler
+1. Client request
+2. Controller handler receive
 3. Service handle the requests
-5. controller response
-6. client
+4. Controller response
 
 </br>
+
 ▶︎ Type Script
 
 </br>
+
 ▶︎ 게시판 CRUD
 
 - Model 정의
@@ -96,3 +98,11 @@ $ npm run test:cov
 - @Param, @Body 이용 data 통신
 
 </br>
+
+▶︎ Pips
+
+- injectable() 데코레이터로 주석이 달린 class
+- for data transformation, data validation
+- 컨트롤러 경로 처리기에 의해 처리되는 인수에 대해 작동.
+- NestJs는 메소드가 호출되기 직전 파이프를 삽입, 
+  파이프틑 메소드로 향하는 인수를 수신하고 이에 대해 작동.

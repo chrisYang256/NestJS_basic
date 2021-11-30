@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch, UsePipes, ValidationPipe } from '@nestjs/common';
 
 import { CreateBoardDto } from './dto/create-board.dto'
 import { BoardsService } from './boards.service';
@@ -19,11 +19,10 @@ export class BoardsController {
     // Another way in NestJS:::  createBoard(@Body() body)...
     // Before use DTO:::  createBoard(@Body('title') title: string, @Body('description') description: string)
     @Post('/')
-    createBoard(
-        // Set DTO and have to set it in service, too.
-        @Body() createBoardDto: CreateBoardDto
+    @UsePipes(ValidationPipe)
+    // Set DTO and have to set it in service, too.
     // Do not write as "Board[]" because just return One at service.
-    ): Board {
+    createBoard(@Body() createBoardDto: CreateBoardDto): Board {
         return this.boardsService.createBoard(createBoardDto); // It call service
     }
 
