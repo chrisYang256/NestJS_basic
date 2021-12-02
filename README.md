@@ -115,3 +115,9 @@ $ npm run test:cov
 - Throw new NotFoundException()
 - Throw new BadRequestException()
 - Custom exception: Insert error message at function parameter
+
+<br/>
+
+▶︎ typeORM
+
+- 
