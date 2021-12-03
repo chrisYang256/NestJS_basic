@@ -118,6 +118,12 @@ $ npm run test:cov
 
 <br/>
 
-▶︎ typeORM
+▶︎ DataBase 연결 / ORM 사용
 
-- 
+- Postgre 연결
+- typeORM 사용법 / DB with Entity
+- repository(REQuest -> CONtroller -> SERvice -> REPository -> CON ~ SER -> response)
+
+<br/>
+
+▶︎ DataBase 및 TyprORM 설정 후 CRUD

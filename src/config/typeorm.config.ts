@@ -5,7 +5,7 @@ export const typeORMConfig: TypeOrmModuleOptions = {
     host: 'localhost',
     port: 5423,
     username: 'postgres',
-    password: 'process.env.DB_PASSWORD',
+    password: process.env.DB_PASSWORD,
     database: 'NestJS_CRUD',
     entities: [__dirname + '/../**/*.entity.{js, ts}'],
     synchronize: true

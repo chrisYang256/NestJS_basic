@@ -1,5 +1,5 @@
 import { PipeTransform, ArgumentMetadata, NotFoundException, BadRequestException } from "@nestjs/common";
-import { BoardStatus } from "../boards.model";
+import { BoardStatus } from "../boards-status.enum";
 
 export class BoardStatusValidationPipe implements PipeTransform {
     readonly StatusOptions = [
@@ -7,12 +7,11 @@ export class BoardStatusValidationPipe implements PipeTransform {
         BoardStatus.PUBLIC
     ]
 
-    // transform(value: any, metadata: ArgumentMetadata) {
+    // transform(value: any, metadata: ArgumentMetadata) { # Check value, metadata
     //     console.log('value:::', value);
     //     console.log('metadata:::', metadata);
     //     return value;
     // }
-
     transform(value: any) {
         value = value.toUpperCase();
 
