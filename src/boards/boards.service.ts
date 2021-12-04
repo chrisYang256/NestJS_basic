@@ -1,17 +1,21 @@
+// Service is like logic
+
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 
 import { BoardStatus } from './boards-status.enum'; // delete { Board } after connect DB
 import { CreateBoardDto } from './dto/create-board.dto';
+import { BoardRepository } from './board.repository';
+import { Board } from './board.entity'
 
 import { v1 as uuid } from 'uuid';
 
 @Injectable()
 export class BoardsService {
-    // // Match the types. And in controller
-    
-    // getAllBoards(): Board[] {
-    //     return this.boards;
-    // }
+    constructor(
+        @InjectRepository(BoardRepository)
+        private boardRepository: BoardRepository
+    ) {}
      
     // createBoard(createBoardDto: CreateBoardDto) {
     //     const { title, description } = createBoardDto;
@@ -36,15 +40,15 @@ export class BoardsService {
 
     //     return post;
     // }
+    async getBoardById(id: number): Promise <Board> {
+        const found = await this.boardRepository.findOne(id);
 
-    // deleteBoardById(id: string): void {
-    //     if(this.getBoardById(id)) {
-    //         this.boards = this.boards.filter((board) => board.id !== id);
-    //     }
-    //     // model answer
-    //     // const found = this.getBoardById(id);
-    //     // this.boards = this.boards.filter(board => board.id !== found.id);
-    // }
+        if(!found) {
+            throw new NotFoundException(`Can't find Board id:${id}`);
+        }
+
+        return found;
+    }
 
     // updateBoardStatus(id: string, status: BoardStatus): Board {
     //     // Already have been executed Error handling at getBoardById()

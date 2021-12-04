@@ -127,3 +127,6 @@ $ npm run test:cov
 <br/>
 
 ▶︎ DataBase 및 TyprORM 설정 후 CRUD
+- controller -> service -> entity
+- 특정 게시물 id로 가져오기(Read)
+- 

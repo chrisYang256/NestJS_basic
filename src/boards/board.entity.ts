@@ -1,3 +1,5 @@
+// Entity is like model in Django
+
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 import { BoardStatus } from "./boards-status.enum";
