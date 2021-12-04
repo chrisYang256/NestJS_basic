@@ -1,4 +1,4 @@
-// Entity is like model in Django
+// The entity is like model in Django
 
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 

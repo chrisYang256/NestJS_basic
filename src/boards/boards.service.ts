@@ -1,4 +1,4 @@
-// Service is like logic
+// The service is like API logic
 
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -17,30 +17,11 @@ export class BoardsService {
         private boardRepository: BoardRepository
     ) {}
      
-    // createBoard(createBoardDto: CreateBoardDto) {
-    //     const { title, description } = createBoardDto;
+    async createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
+        return this.boardRepository.createBoard(createBoardDto);
+    }
 
-    //     const board: Board = {
-    //         id: uuid(),
-    //         title,
-    //         description,
-    //         status: BoardStatus.PUBLIC
-    //     }
-        
-    //     this.boards.push(board);
-    //     return board;
-    // }
-
-    // getBoardById(id: string): Board {
-    //     const post = this.boards.find((board) => board.id === id);
-
-    //     if(!post) {
-    //         throw new NotFoundException(`Cant find Board with id:${id}`);
-    //     }
-
-    //     return post;
-    // }
-    async getBoardById(id: number): Promise <Board> {
+    async getBoardById(id: number): Promise<Board> {
         const found = await this.boardRepository.findOne(id);
 
         if(!found) {
