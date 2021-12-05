@@ -1,14 +1,12 @@
-// Service is like logic
+// The service is like API logic
 
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { BoardStatus } from './boards-status.enum'; // delete { Board } after connect DB
 import { CreateBoardDto } from './dto/create-board.dto';
 import { BoardRepository } from './board.repository';
 import { Board } from './board.entity'
-
-import { v1 as uuid } from 'uuid';
+import { BoardStatus } from './boards-status.enum';
 
 @Injectable()
 export class BoardsService {
@@ -16,47 +14,44 @@ export class BoardsService {
         @InjectRepository(BoardRepository)
         private boardRepository: BoardRepository
     ) {}
+
+    async getAllPosts(): Promise<Board[]> {
+        return this.boardRepository.find();
+    }
      
-    // createBoard(createBoardDto: CreateBoardDto) {
-    //     const { title, description } = createBoardDto;
+    async createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
+        return this.boardRepository.createBoard(createBoardDto);
+    }
 
-    //     const board: Board = {
-    //         id: uuid(),
-    //         title,
-    //         description,
-    //         status: BoardStatus.PUBLIC
-    //     }
-        
-    //     this.boards.push(board);
-    //     return board;
-    // }
-
-    // getBoardById(id: string): Board {
-    //     const post = this.boards.find((board) => board.id === id);
-
-    //     if(!post) {
-    //         throw new NotFoundException(`Cant find Board with id:${id}`);
-    //     }
-
-    //     return post;
-    // }
-    async getBoardById(id: number): Promise <Board> {
+    async getBoardById(id: number): Promise<Board> {
         const found = await this.boardRepository.findOne(id);
 
         if(!found) {
-            throw new NotFoundException(`Can't find Board id:${id}`);
+            throw new NotFoundException(`Can't find Post id:${id}`);
         }
 
         return found;
     }
 
-    // updateBoardStatus(id: string, status: BoardStatus): Board {
-    //     // Already have been executed Error handling at getBoardById()
-    //     const post = this.getBoardById(id); // Reuse getBoardById() and get it's all data
+    async deleteBoardById(id: number): Promise<void> {
+        const result = await this.boardRepository.delete(id);
 
-    //     post.status = status;
-    //     return post;
-    // }
+        // Do validation check ourself because delete method doesn't spread error msg
+        if(result.affected === 0) {
+            throw new NotFoundException(`Can't find Post with id:${id}`)
+        }
+
+        console.log('deleteBoardById result:::', result);
+    }
+
+    async updateBoardStatus(id: number, status: BoardStatus): Promise<Board> {
+        const post = await this.getBoardById(id)
+
+        post.status = status;
+        await this.boardRepository.save(post);
+
+        return post;
+    }
 }
 
 

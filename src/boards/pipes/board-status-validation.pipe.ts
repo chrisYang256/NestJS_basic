@@ -1,4 +1,4 @@
-import { PipeTransform, ArgumentMetadata, NotFoundException, BadRequestException } from "@nestjs/common";
+import { PipeTransform, BadRequestException } from "@nestjs/common";
 import { BoardStatus } from "../boards-status.enum";
 
 export class BoardStatusValidationPipe implements PipeTransform {

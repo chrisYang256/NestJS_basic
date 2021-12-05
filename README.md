@@ -127,6 +127,6 @@ $ npm run test:cov
 <br/>
 
 ▶︎ DataBase 및 TyprORM 설정 후 CRUD
-- controller -> service -> entity
+- controller -> service -> repository with entity
 - 특정 게시물 id로 가져오기(Read)
-- 
+- 게시물 작성(Create, DTO로 데이터 흐름을 안정적으로 만들어줌)

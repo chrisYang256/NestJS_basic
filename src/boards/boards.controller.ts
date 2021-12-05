@@ -1,6 +1,6 @@
-// Controller is like router
+// the controller is like router
 
-import { Controller, Get, Post, Body, Param, Delete, Patch, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch, UsePipes, ValidationPipe, ParseIntPipe } from '@nestjs/common';
 
 import { BoardsService } from './boards.service';
 import { Board } from './board.entity'
@@ -19,39 +19,34 @@ export class BoardsController {
     //     return this.boardsService.getAllBoards();
     // }
 
-    // // The way to get Express to body:::  app.post('/', (req, res) => { console.log(req.body) })
-    // // Another way in NestJS:::  createBoard(@Body() body)...
-    // // Before use DTO:::  createBoard(@Body('title') title: string, @Body('description') description: string)
-    // @Post('/')
-    // @UsePipes(ValidationPipe)
-    // // Set DTO and have to set it in service, too.
-    // // Do not write as "Board[]" because just return One at service.
-    // createBoard(@Body() createBoardDto: CreateBoardDto): Board {
-    //     return this.boardsService.createBoard(createBoardDto); // It call service
-    // }
+    @Get('/')
+    getAllPosts(): Promise<Board[]> {
+        return this.boardsService.getAllPosts();
+    }
 
-    // @Get('/:id')
-    // getBoardById(@Param('id') id: string): Board {
-    //     return this.boardsService.getBoardById(id);
-    // }   
+    @Post('/')
+    @UsePipes(ValidationPipe)
+    createBoard(@Body() createBoardDto: CreateBoardDto): Promise<Board> {
+        return this.boardsService.createBoard(createBoardDto);
+    }
+
     @Get('/:id')
-    getBoardById(@Param('id') id: number): Promise <Board> {
+    getBoardById(@Param('id') id: number): Promise<Board> {
         return this.boardsService.getBoardById(id);
     }
 
-    // @Delete('/:id')
-    // // void::: Use it when there is no return value.
-    // deleteBoardById(@Param('id') id: string): void {
-    //     this.boardsService.deleteBoardById(id);
-    // }
+    @Delete('/:id')
+    deleteBoardById(@Param('id', ParseIntPipe) id: number): Promise<void> {
+        return this.boardsService.deleteBoardById(id);
+    }
 
-    // @Patch('/:id/status')
-    // updateBoardStatus(
-    //     @Param('id') id: string,
-    //     @Body('status', BoardStatusValidationPipe) status: BoardStatus,
-    // ) {
-    //     return this.boardsService.updateBoardStatus(id, status);
-    // }
+    @Patch('/:id/status')
+    updateBoardStatus(
+        @Param('id', ParseIntPipe) id: number,
+        @Body('status', BoardStatusValidationPipe) status: BoardStatus
+        ): Promise<Board> {
+            return this.boardsService.updateBoardStatus(id, status)
+        }
 }
 
 

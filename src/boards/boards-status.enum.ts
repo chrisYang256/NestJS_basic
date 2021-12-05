@@ -14,3 +14,4 @@ export enum BoardStatus {
     PUBLIC = 'PUBLIC',
     PRIVATE = 'PRIVATE',
 }
+console.log(typeof(BoardStatus))
