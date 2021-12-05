@@ -14,6 +14,10 @@ export class BoardsService {
         @InjectRepository(BoardRepository)
         private boardRepository: BoardRepository
     ) {}
+
+    async getAllPosts(): Promise<Board[]> {
+        return this.boardRepository.find();
+    }
      
     async createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
         return this.boardRepository.createBoard(createBoardDto);
@@ -48,13 +52,6 @@ export class BoardsService {
 
         return post;
     }
-    // updateBoardStatus(id: string, status: BoardStatus): Board {
-    //     // Already have been executed Error handling at getBoardById()
-    //     const post = this.getBoardById(id); // Reuse getBoardById() and get it's all data
-
-    //     post.status = status;
-    //     return post;
-    // }
 }
 
 
