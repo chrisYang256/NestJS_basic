@@ -11,13 +11,6 @@ import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe'
 @Controller('boards') // "/boards"
 export class BoardsController {
     constructor(private boardsService: BoardsService) {} // Injection the Service
-    
-    // // client request(/boards) -> controller -> getAllBoard() -> boardsService handle the requests -> controller response -> client
-    // @Get('/')
-    // // getAllBoards::: handler
-    // getAllBoards(): Board[] {
-    //     return this.boardsService.getAllBoards();
-    // }
 
     @Get('/')
     getAllPosts(): Promise<Board[]> {

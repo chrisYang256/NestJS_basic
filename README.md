@@ -130,3 +130,8 @@ $ npm run test:cov
 - controller -> service -> repository with entity
 - 게시물 CRUD
 - 게시물 작성 시 DTO로 데이터 흐름을 안정적으로 만들어줌
+
+<br/>
+
+▶︎ Auth
+- @Uniqle()로 unique한 값의 data 만들어주기 / Error handling by try/catch
