@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { BoardRepository } from './board.repository';
 import { Board } from './board.entity'
+import { BoardStatus } from './boards-status.enum';
 
 @Injectable()
 export class BoardsService {
@@ -39,6 +40,14 @@ export class BoardsService {
         console.log('deleteBoardById result:::', result);
     }
 
+    async updateBoardStatus(id: number, status: BoardStatus): Promise<Board> {
+        const post = await this.getBoardById(id)
+
+        post.status = status;
+        await this.boardRepository.save(post);
+
+        return post;
+    }
     // updateBoardStatus(id: string, status: BoardStatus): Board {
     //     // Already have been executed Error handling at getBoardById()
     //     const post = this.getBoardById(id); // Reuse getBoardById() and get it's all data
