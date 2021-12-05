@@ -1,6 +1,6 @@
 // the controller is like router
 
-import { Controller, Get, Post, Body, Param, Delete, Patch, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch, UsePipes, ValidationPipe, ParseIntPipe } from '@nestjs/common';
 
 import { BoardsService } from './boards.service';
 import { Board } from './board.entity'
@@ -33,7 +33,7 @@ export class BoardsController {
     @Post('/')
     @UsePipes(ValidationPipe)
     createBoard(@Body() createBoardDto: CreateBoardDto): Promise<Board> {
-        return this.boardsService.createBoard(createBoardDto)
+        return this.boardsService.createBoard(createBoardDto);
     }
 
     @Get('/:id')
@@ -41,11 +41,10 @@ export class BoardsController {
         return this.boardsService.getBoardById(id);
     }
 
-    // @Delete('/:id')
-    // // void::: Use it when there is no return value.
-    // deleteBoardById(@Param('id') id: string): void {
-    //     this.boardsService.deleteBoardById(id);
-    // }
+    @Delete('/:id')
+    deleteBoardById(@Param('id', ParseIntPipe) id: number): Promise<void> {
+        return this.boardsService.deleteBoardById(id);
+    }
 
     // @Patch('/:id/status')
     // updateBoardStatus(

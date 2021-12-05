@@ -3,12 +3,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { BoardStatus } from './boards-status.enum'; // delete { Board } after connect DB
 import { CreateBoardDto } from './dto/create-board.dto';
 import { BoardRepository } from './board.repository';
 import { Board } from './board.entity'
-
-import { v1 as uuid } from 'uuid';
 
 @Injectable()
 export class BoardsService {
@@ -25,10 +22,21 @@ export class BoardsService {
         const found = await this.boardRepository.findOne(id);
 
         if(!found) {
-            throw new NotFoundException(`Can't find Board id:${id}`);
+            throw new NotFoundException(`Can't find Post id:${id}`);
         }
 
         return found;
+    }
+
+    async deleteBoardById(id: number): Promise<void> {
+        const result = await this.boardRepository.delete(id);
+
+        // Do validation check ourself because delete method doesn't spread error msg
+        if(result.affected === 0) {
+            throw new NotFoundException(`Can't find Post with id:${id}`)
+        }
+
+        console.log('deleteBoardById result:::', result);
     }
 
     // updateBoardStatus(id: string, status: BoardStatus): Board {
