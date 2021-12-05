@@ -1,4 +1,4 @@
-// The repository is like ..logic and...
+// The repository is In charge of CRUD
 
 import { EntityRepository, Repository } from "typeorm";
 
