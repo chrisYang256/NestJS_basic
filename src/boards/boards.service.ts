@@ -1,12 +1,12 @@
 // The service is like API logic
 
-import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
-import { CreateBoardDto } from './dto/create-board.dto';
-import { BoardRepository } from './board.repository';
 import { Board } from './board.entity'
 import { BoardStatus } from './boards-status.enum';
+import { BoardRepository } from './board.repository';
+import { CreateBoardDto } from './dto/create-board.dto';
 
 @Injectable()
 export class BoardsService {
