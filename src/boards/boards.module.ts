@@ -6,10 +6,10 @@ import { BoardRepository } from './board.repository';
 import { BoardsController } from './boards.controller';
 
 @Module({
+  providers: [BoardsService],
+  controllers: [BoardsController],
   imports: [
     TypeOrmModule.forFeature([BoardRepository])
   ],
-  controllers: [BoardsController],
-  providers: [BoardsService]
 })
 export class BoardsModule {}

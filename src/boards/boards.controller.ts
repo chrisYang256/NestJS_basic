@@ -2,10 +2,10 @@
 
 import { Controller, Get, Post, Body, Param, Delete, Patch, UsePipes, ValidationPipe, ParseIntPipe } from '@nestjs/common';
 
-import { BoardsService } from './boards.service';
 import { Board } from './board.entity'
+import { BoardsService } from './boards.service';
+import { BoardStatus } from './boards-status.enum';
 import { CreateBoardDto } from './dto/create-board.dto';
-import { BoardStatus } from './boards-status.enum'; // delete { Board } after connect DB
 import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe';
 
 @Controller('boards') // "/boards"

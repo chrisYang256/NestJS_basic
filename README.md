@@ -137,3 +137,4 @@ $ npm run test:cov
 - @Unique()로 unique한 값의 data로 만들어주기 
 - Error handling by try/catch
 - bcryptjs를 이용한 비밀번호 암호화
+- 로그인 시 Json Web Token 생성, header에 담아 client로 return
