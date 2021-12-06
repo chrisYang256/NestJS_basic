@@ -134,4 +134,6 @@ $ npm run test:cov
 <br/>
 
 ▶︎ Auth
-- @Uniqle()로 unique한 값의 data 만들어주기 / Error handling by try/catch
+- @Unique()로 unique한 값의 data로 만들어주기 
+- Error handling by try/catch
+- bcryptjs를 이용한 비밀번호 암호화
