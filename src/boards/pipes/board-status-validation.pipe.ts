@@ -1,3 +1,6 @@
+// 유효성체크, 데이터 타입 변환을 해줍니다.
+// 데이터를 예상한대로 직렬화 합니다.
+
 import { PipeTransform, BadRequestException } from "@nestjs/common";
 
 import { BoardStatus } from "../boards-status.enum";
