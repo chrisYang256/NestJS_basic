@@ -1,4 +1,3 @@
-import { ConfigService } from "@nestjs/config";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ExtractJwt, Strategy } from "passport-jwt";
 import { PassportStrategy } from "@nestjs/passport";
@@ -6,6 +5,9 @@ import { Injectable, UnauthorizedException } from "@nestjs/common";
 
 import { User } from "./user.entity";
 import { UserRepository } from "./user.repository";
+
+require("dotenv").config();
+// console.log('process.env:::', process.env)
 
 // Nest는 의존성 주입 시스템(Dependency Injection system)을 통해 이 서비스를 필요로하는 어디서든 inject 할 수 있습니다.
 @Injectable()
@@ -16,7 +18,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         // 토큰이 유효한지 확인 후 payload 안에 들어있는 유저 이름을 통해 DB에서 유저정보를 가져오기 위해 UserRepository를 가져옵니다.
         @InjectRepository(UserRepository)
         private userRepository: UserRepository,
-        private readonly configService: ConfigService
     ) {
         // 2가지 중요한 옵션을 전달합니다.
         super({
@@ -39,6 +40,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
             throw new UnauthorizedException(`Unauthorized user:${user}`);
         }
 
-        return user;
+        return user; // return @UseGuards() to Controller
     }
 }

@@ -18,11 +18,11 @@ export class AuthController {
         return this.authService.signIn(AuthCredentialsDto)
     }
 
-    @Post('/authTest')
+    @Post('/authTest') // Before user custom decorator to get user info
     // Guard는 인증 미들웨어 입니다.
     // UseGuards() 안에 @Nestjs/passport에서 가져온 AuthGuard()를 이용하면 요청 안에 유저 정보를 넣어줄 수 있습니다.
     @UseGuards(AuthGuard())
     authTest(@Req() req) {
-        console.log('req:::', req);
+        console.log('req.user:::', req.user);
     }
 } 

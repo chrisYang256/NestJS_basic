@@ -138,3 +138,4 @@ $ npm run test:cov
 - Error handling by try/catch
 - bcryptjs를 이용한 비밀번호 암호화
 - 로그인 시 Json Web Token 생성, header에 담아 client로 return
+- JWT, passport strategy
