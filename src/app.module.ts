@@ -10,7 +10,6 @@ import { typeORMConfig } from './config/typeorm.config';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env'
     }),
     AuthModule,
     BoardsModule,
