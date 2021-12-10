@@ -139,3 +139,11 @@ $ npm run test:cov
 - bcryptjs를 이용한 비밀번호 암호화
 - 로그인 시 Json Web Token 생성, header에 담아 client로 return
 - JWT, passport strategy
+- custom decorator 생성하기(CreateParamDecorator)
+- 자신의 게시물만 불러오기
+- 로그인한 사람만 CRUD
+
+<br/>
+
+▶︎ log, configuration
+- 
