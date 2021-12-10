@@ -4,8 +4,10 @@ import { AuthGuard } from '@nestjs/passport';
 import { Controller, Get, Post, Body, Param, Delete, Patch, UsePipes, ValidationPipe, ParseIntPipe, UseGuards } from '@nestjs/common';
 
 import { Board } from './board.entity'
+import { User } from 'src/auth/user.entity';
 import { BoardsService } from './boards.service';
 import { BoardStatus } from './boards-status.enum';
+import { GetUser } from 'src/auth/get-user.decorator';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe';
 
@@ -14,35 +16,49 @@ export class BoardsController {
     constructor(private boardsService: BoardsService) {} // Injection the Service
 
     @Get('/')
+    getAllBoards(): Promise<Board[]> {
+        return this.boardsService.getAllBoards();
+    }
+
+    @Get('/my')
     @UseGuards(AuthGuard())
-    getAllPosts(): Promise<Board[]> {
-        return this.boardsService.getAllPosts();
+    getAllBoardsOfSpecificUser(
+        @GetUser() user: User
+        ): Promise<Board[]> {
+        return this.boardsService.getAllBoardsOfSpecificUser(user);
     }
 
     @Post('/')
     @UseGuards(AuthGuard())
     @UsePipes(ValidationPipe)
-    createBoard(@Body() createBoardDto: CreateBoardDto): Promise<Board> {
-        return this.boardsService.createBoard(createBoardDto);
+    createBoard(
+        @Body() createBoardDto: CreateBoardDto,
+        @GetUser() user: User
+        ): Promise<Board> {
+        return this.boardsService.createBoard(createBoardDto, user);
     }
 
     @Get('/:id')
-    @UseGuards(AuthGuard())
-    getBoardById(@Param('id') id: number): Promise<Board> {
+    getBoardById(
+        @Param('id') id: number
+        ): Promise<Board> {
         return this.boardsService.getBoardById(id);
     }
 
     @Delete('/:id')
     @UseGuards(AuthGuard())
-    deleteBoardById(@Param('id', ParseIntPipe) id: number): Promise<void> {
-        return this.boardsService.deleteBoardById(id);
+    deleteBoardById(
+        @Param('id', ParseIntPipe) id: number,
+        @GetUser() user: User
+        ): Promise<void> {
+        return this.boardsService.deleteBoardById(id, user);
     }
 
     @Patch('/:id/status')
     @UseGuards(AuthGuard())
     updateBoardStatus(
         @Param('id', ParseIntPipe) id: number,
-        @Body('status', BoardStatusValidationPipe) status: BoardStatus
+        @Body('status', BoardStatusValidationPipe) status: BoardStatus,
         ): Promise<Board> {
             return this.boardsService.updateBoardStatus(id, status)
         }

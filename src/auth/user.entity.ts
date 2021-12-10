@@ -15,10 +15,4 @@ export class User extends BaseEntity {
 
     @OneToMany(type => Board, board => board.user, { eager: true })
     boards: Board[];
-
-    async vaildatePassword(password: string): Promise<boolean> {
-        let isValid = await bcrypt.compare(password, this.password)
-
-        return isValid;
-    }
 }

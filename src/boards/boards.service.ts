@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { Board } from './board.entity'
+import { User } from 'src/auth/user.entity';
 import { BoardStatus } from './boards-status.enum';
 import { BoardRepository } from './board.repository';
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -15,12 +16,23 @@ export class BoardsService {
         private boardRepository: BoardRepository
     ) {}
 
-    async getAllPosts(): Promise<Board[]> {
+    async getAllBoards(): Promise<Board[]> {
         return this.boardRepository.find();
     }
+
+    async getAllBoardsOfSpecificUser(user: User): Promise<Board[]> {
+        const query = this.boardRepository.createQueryBuilder('board');
+
+        query.where('board.userId = :userId', { userId: user.id });
+
+        const boards = await query.getMany();
+        console.log('boards:::', boards)
+
+        return boards;
+    }
      
-    async createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
-        return this.boardRepository.createBoard(createBoardDto);
+    async createBoard(createBoardDto: CreateBoardDto, user: User): Promise<Board> {
+        return this.boardRepository.createBoard(createBoardDto, user);
     }
 
     async getBoardById(id: number): Promise<Board> {
@@ -33,15 +45,15 @@ export class BoardsService {
         return found;
     }
 
-    async deleteBoardById(id: number): Promise<void> {
-        const result = await this.boardRepository.delete(id);
+    async deleteBoardById(id: number, user: User): Promise<void> {
+        const result = await this.boardRepository.delete({ id, user });
 
         // Do validation check ourself because delete method doesn't spread error msg
         if(result.affected === 0) {
             throw new NotFoundException(`Can't find Post with id:${id}`)
         }
 
-        console.log('deleteBoardById result:::', result);
+        console.log('deleteBoardById result:::', result); // deleteBoardById result::: DeleteResult { raw: [], affected: 1 }
     }
 
     async updateBoardStatus(id: number, status: BoardStatus): Promise<Board> {
