@@ -1,6 +1,7 @@
 // the controller is like router
 
-import { Controller, Get, Post, Body, Param, Delete, Patch, UsePipes, ValidationPipe, ParseIntPipe } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { Controller, Get, Post, Body, Param, Delete, Patch, UsePipes, ValidationPipe, ParseIntPipe, UseGuards } from '@nestjs/common';
 
 import { Board } from './board.entity'
 import { BoardsService } from './boards.service';
@@ -13,27 +14,32 @@ export class BoardsController {
     constructor(private boardsService: BoardsService) {} // Injection the Service
 
     @Get('/')
+    @UseGuards(AuthGuard())
     getAllPosts(): Promise<Board[]> {
         return this.boardsService.getAllPosts();
     }
 
     @Post('/')
+    @UseGuards(AuthGuard())
     @UsePipes(ValidationPipe)
     createBoard(@Body() createBoardDto: CreateBoardDto): Promise<Board> {
         return this.boardsService.createBoard(createBoardDto);
     }
 
     @Get('/:id')
+    @UseGuards(AuthGuard())
     getBoardById(@Param('id') id: number): Promise<Board> {
         return this.boardsService.getBoardById(id);
     }
 
     @Delete('/:id')
+    @UseGuards(AuthGuard())
     deleteBoardById(@Param('id', ParseIntPipe) id: number): Promise<void> {
         return this.boardsService.deleteBoardById(id);
     }
 
     @Patch('/:id/status')
+    @UseGuards(AuthGuard())
     updateBoardStatus(
         @Param('id', ParseIntPipe) id: number,
         @Body('status', BoardStatusValidationPipe) status: BoardStatus
