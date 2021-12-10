@@ -146,4 +146,5 @@ $ npm run test:cov
 <br/>
 
 ▶︎ log, configuration
-- 
+- Logger 모듈로 log, verbose 출력
+- config 모듈로 운영환경에 따른 configuration 설정
