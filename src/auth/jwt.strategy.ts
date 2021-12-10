@@ -1,3 +1,4 @@
+import * as config from 'config';
 import { InjectRepository } from "@nestjs/typeorm";
 import { ExtractJwt, Strategy } from "passport-jwt";
 import { PassportStrategy } from "@nestjs/passport";
@@ -6,8 +7,7 @@ import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { User } from "./user.entity";
 import { UserRepository } from "./user.repository";
 
-require("dotenv").config();
-// console.log('process.env:::', process.env)
+const jwtConfig = config.get('jwt')
 
 // Nest는 의존성 주입 시스템(Dependency Injection system)을 통해 이 서비스를 필요로하는 어디서든 inject 할 수 있습니다.
 @Injectable()
@@ -23,7 +23,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         super({
             // 토큰이 유효한지 체크합니다.
             // JWT Token 해독을 위해 JWT Stragegy가 사용할 시크릿키를 구성하고 Token에 접근합니다.
-            secretOrKey: process.env.JWT_SECRET,
+            secretOrKey: process.env.JWT_SECRET || `${jwtConfig.secret}`,
             // 토큰을 헤더에서 받아와서 위의 시크릿키로 유효한지 확인합니다.
             // Bearer token으로 전달된 현재 요청의 인증 헤더에서 JWT를 찾도록 Strategy(imported from passport-jwt package)를 설정합니다.
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
